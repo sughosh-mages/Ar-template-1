@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Image tracking template using AR.js</title>
+    <meta author="Cindy">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+    <script src='https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js'></script>
+
+    <!-- rawgithack development URL -->
+    <script src='https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js'></script>
+
+    <!-- animation -->
+    <!-- <script src='https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js'></script> -->
+    
+    <script>
+    
+    AFRAME.registerComponent('modify-materials', {
+      init: function () {
+        // Wait for model to load.
+        console.log('add component');
+        this.el.addEventListener('model-loaded', () => {
+          // console.log('load model');
+          // console.log(this.el.getAttribute('visible'));
+          // this.el.setAttribute('visible', false);
+          // console.log(this.el.getAttribute('visible'));
+          // this.el.visible = false;
+          // Grab the mesh / scene.
+          // const obj = this.el.getObject3D('mesh');
+          // obj.visible = false;
+          // // Go over the submeshes and modify materials we want.
+          // obj.traverse(node => {
+          //   console.log(node.material);
+          //   // node.material = document.querySelector("#red-texture");
+          //   // console.log(node.material);
+          //   // node.material.color.set('red');
+          //   // node.material.needsUpdate = true;
+          // });
+
+
+          // document.querySelector(".color-button").addEventListener("click", function () {
+          //   console.log('click');
+          //   // var el = this.el;
+          //   // var targetEl = this.data.target;
+          //   // this.el.getObject3D('mesh').visible = false;
+          // });
+        });
+      }
+    });
+
+        window.onload = function() {
+            document.querySelector(".color-red-button").addEventListener("click", function () {
+              // var sceneEl = document.querySelector('a-scene');
+              // console.log(sceneEl);
+              // var modelEl = sceneEl.querySelector('#model');
+              // var modelEl = document.querySelector('#car-model');
+              var redModel = document.querySelector('#car-model-red');
+              var yellowModel = document.querySelector('#car-model-yellow');
+              redModel.object3D.visible = true;
+              yellowModel.object3D.visible = false;
+              // redModel.setAttribute('visible', 'true');
+              // yellowModel.setAttribute('visible', 'false');
+              // if (model.getAttribute('visible'))
+              // {
+              //   model.setAttribute('visible', 'false');
+              // }
+              // else
+              // {
+              //   model.setAttribute('visible', 'true');
+              // }
+            });
+
+            document.querySelector(".color-yellow-button").addEventListener("click", function () {
+              // var modelEl = document.querySelector('#car-model');
+              var redModel = document.querySelector('#car-model-red');
+              var yellowModel = document.querySelector('#car-model-yellow');
+              redModel.object3D.visible = false;
+              yellowModel.object3D.visible = true;
+              // redModel.setAttribute('visible', 'false');
+              // yellowModel.setAttribute('visible', 'true');
+            });
+
+            // document.querySelector(".screenshot-button").addEventListener("click", function () {
+            //     //console.log('Click take screenshot button');
+            //     //alert("Click take screenshot button");
+            //     // var script= document.createElement('script');
+            //     // script.src='https://raw.githack.com/AdaRoseCannon/f6b96e4ea44c0201bc72879da62e633a/raw/9074d13fdbc540a0b4b578009c2fac79711359ba/equirectangular.js';
+            //     // document.body.appendChild(script);
+            //     //document.querySelector('a-scene').components.screenshot.capture('perspective');
+            // });
+
+            document.querySelector(".eshop-button").addEventListener("click", function () {
+                //alert("Click open e shop button");
+                window.location.href = 'https://magesstudio.com.sg/';
+            });
+
+            document.querySelector(".facebook-button").addEventListener("click", function () {
+                window.location.href = 'https://www.facebook.com/';
+            });
+        };
+
+    </script>
+
+    <style>
+      .arjs-loader {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .arjs-loader div {
+        text-align: center;
+        font-size: 1.25em;
+        color: white;
+      }
+
+      .bottom-buttons {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 5em;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 10;
+      }
+
+      /* .color-buttons {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 5em;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 10;
+      } */
+
+      .top-buttons {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 5em;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 10;
+      }
+
+      .color-red-button {
+          padding: 0.25em;
+          border-radius: 4px;
+          border: none;
+          background: white;
+          color: black;
+          width: 6em;
+          height: 4em;
+      }
+
+      .color-yellow-button {
+          padding: 0.25em;
+          border-radius: 4px;
+          border: none;
+          background: white;
+          color: black;
+          width: 6em;
+          height: 4em;
+      }
+/* 
+      .screenshot-button {
+          padding: 0.25em;
+          border-radius: 4px;
+          border: none;
+          background: white;
+          color: black;
+          width: 6em;
+          height: 4em;
+      } */
+
+      .eshop-button {
+          padding: 0.25em;
+          border-radius: 4px;
+          border: none;
+          background: white;
+          color: black;
+          width: 6em;
+          height: 4em;
+      }
+
+      .facebook-button {
+          padding: 0.25em;
+          border-radius: 4px;
+          border: none;
+          background: white;
+          color: black;
+          width: 6em;
+          height: 4em;
+      }
+    </style>
+  </head>
+
+  <script>
+    /* global AFRAME, THREE */
+
+    AFRAME.registerComponent("gesture-handler", {
+      schema: {
+        enabled: { default: true },
+        // rotationFactor: { default: 5 },
+        minScale: { default: 0.3 },
+        maxScale: { default: 8 },
+      },
+
+      init: function () {
+        this.handleScale = this.handleScale.bind(this);
+        // this.handleRotation = this.handleRotation.bind(this);
+
+        this.isVisible = false;
+        this.initialScale = this.el.object3D.scale.clone();
+        this.scaleFactor = 1;
+
+        this.el.sceneEl.addEventListener("markerFound", (e) => {
+          this.isVisible = true;
+        });
+
+        this.el.sceneEl.addEventListener("markerLost", (e) => {
+          this.isVisible = false;
+        });
+      },
+
+      update: function () {
+        if (this.data.enabled) {
+          // this.el.sceneEl.addEventListener("onefingermove", this.handleRotation);
+          this.el.sceneEl.addEventListener("twofingermove", this.handleScale);
+        } else {
+          // this.el.sceneEl.removeEventListener("onefingermove", this.handleRotation);
+          this.el.sceneEl.removeEventListener("twofingermove", this.handleScale);
+        }
+      },
+
+      remove: function () {
+        // this.el.sceneEl.removeEventListener("onefingermove", this.handleRotation);
+        this.el.sceneEl.removeEventListener("twofingermove", this.handleScale);
+      },
+
+      // handleRotation: function (event) {
+      //   if (this.isVisible) {
+      //     this.el.object3D.rotation.y -=
+      //       event.detail.positionChange.x * this.data.rotationFactor;
+      //     this.el.object3D.rotation.x +=
+      //       event.detail.positionChange.y * this.data.rotationFactor;
+      //   }
+      // },
+
+      handleScale: function (event) {
+        if (this.isVisible) {
+          this.scaleFactor *=
+            1 + event.detail.spreadChange / event.detail.startSpread;
+
+          this.scaleFactor = Math.min(
+            Math.max(this.scaleFactor, this.data.minScale),
+            this.data.maxScale
+          );
+
+          this.el.object3D.scale.x = this.scaleFactor * this.initialScale.x;
+          this.el.object3D.scale.y = this.scaleFactor * this.initialScale.y;
+          this.el.object3D.scale.z = this.scaleFactor * this.initialScale.z;
+        }
+      },
+    });
+
+    // Component that detects and emits events for touch gestures
+
+    AFRAME.registerComponent("gesture-detector", {
+      schema: {
+        element: { default: "" }
+      },
+
+      init: function() {
+        this.targetElement =
+          this.data.element && document.querySelector(this.data.element);
+
+        if (!this.targetElement) {
+          this.targetElement = this.el;
+        }
+
+        this.internalState = {
+          previousState: null
+        };
+
+        this.emitGestureEvent = this.emitGestureEvent.bind(this);
+
+        this.targetElement.addEventListener("touchstart", this.emitGestureEvent);
+
+        this.targetElement.addEventListener("touchend", this.emitGestureEvent);
+
+        this.targetElement.addEventListener("touchmove", this.emitGestureEvent);
+      },
+
+      remove: function() {
+        this.targetElement.removeEventListener("touchstart", this.emitGestureEvent);
+
+        this.targetElement.removeEventListener("touchend", this.emitGestureEvent);
+
+        this.targetElement.removeEventListener("touchmove", this.emitGestureEvent);
+      },
+
+      emitGestureEvent(event) {
+        const currentState = this.getTouchState(event);
+
+        const previousState = this.internalState.previousState;
+
+        const gestureContinues =
+          previousState &&
+          currentState &&
+          currentState.touchCount == previousState.touchCount;
+
+        const gestureEnded = previousState && !gestureContinues;
+
+        const gestureStarted = currentState && !gestureContinues;
+
+        if (gestureEnded) {
+          const eventName =
+            this.getEventPrefix(previousState.touchCount) + "fingerend";
+
+          this.el.emit(eventName, previousState);
+
+          this.internalState.previousState = null;
+        }
+
+        if (gestureStarted) {
+          currentState.startTime = performance.now();
+
+          currentState.startPosition = currentState.position;
+
+          currentState.startSpread = currentState.spread;
+
+          const eventName =
+            this.getEventPrefix(currentState.touchCount) + "fingerstart";
+
+          this.el.emit(eventName, currentState);
+
+          this.internalState.previousState = currentState;
+        }
+
+        if (gestureContinues) {
+          const eventDetail = {
+            positionChange: {
+              x: currentState.position.x - previousState.position.x,
+
+              y: currentState.position.y - previousState.position.y
+            }
+          };
+
+          if (currentState.spread) {
+            eventDetail.spreadChange = currentState.spread - previousState.spread;
+          }
+
+          // Update state with new data
+
+          Object.assign(previousState, currentState);
+
+          // Add state data to event detail
+
+          Object.assign(eventDetail, previousState);
+
+          const eventName =
+            this.getEventPrefix(currentState.touchCount) + "fingermove";
+
+          this.el.emit(eventName, eventDetail);
+        }
+      },
+
+      getTouchState: function(event) {
+        if (event.touches.length === 0) {
+          return null;
+        }
+
+        // Convert event.touches to an array so we can use reduce
+
+        const touchList = [];
+
+        for (let i = 0; i < event.touches.length; i++) {
+          touchList.push(event.touches[i]);
+        }
+
+        const touchState = {
+          touchCount: touchList.length
+        };
+
+        // Calculate center of all current touches
+
+        const centerPositionRawX =
+          touchList.reduce((sum, touch) => sum + touch.clientX, 0) /
+          touchList.length;
+
+        const centerPositionRawY =
+          touchList.reduce((sum, touch) => sum + touch.clientY, 0) /
+          touchList.length;
+
+        touchState.positionRaw = { x: centerPositionRawX, y: centerPositionRawY };
+
+        // Scale touch position and spread by average of window dimensions
+
+        const screenScale = 2 / (window.innerWidth + window.innerHeight);
+
+        touchState.position = {
+          x: centerPositionRawX * screenScale,
+          y: centerPositionRawY * screenScale
+        };
+
+        // Calculate average spread of touches from the center point
+
+        if (touchList.length >= 2) {
+          const spread =
+            touchList.reduce((sum, touch) => {
+              return (
+                sum +
+                Math.sqrt(
+                  Math.pow(centerPositionRawX - touch.clientX, 2) +
+                    Math.pow(centerPositionRawY - touch.clientY, 2)
+                )
+              );
+            }, 0) / touchList.length;
+
+          touchState.spread = spread * screenScale;
+        }
+
+        return touchState;
+      },
+
+      getEventPrefix(touchCount) {
+        const numberNames = ["one", "two", "three", "many"];
+
+        return numberNames[Math.min(touchCount, 4) - 1];
+      }
+    });
+  </script>
+
+  <body style='margin : 0px; overflow: hidden;'>
+    <!-- minimal loader shown until image descriptors are loaded -->
+    <div class="arjs-loader">
+      <div>Loading, please wait...</div>
+    </div>
+
+    <div class="bottom-buttons">
+        <!-- <button class="screenshot-button">Take Screenshot</button> -->
+        <button class="color-red-button">Change to Red</button>
+        <button class="color-yellow-button">Change to Yellow</button>
+    </div>
+
+    <!-- <div class="color-buttons">
+        <button class="color-button">Change color</button>
+    </div> -->
+
+    <div class="top-buttons">
+        <button class="eshop-button">Open E-Shop</button>
+        <button class="facebook-button">Open Facebook</button>
+    </div>
+
+      <a-scene
+        vr-mode-ui='enabled: false;'
+        renderer="logarithmicDepthBuffer: true;"
+        embedded arjs='trackingMethod: best; sourceType: webcam; debugUIEnabled: false;'
+        gesture-detector
+        id="scene">
+
+        <a-assets>
+          <a-asset-item id="yellow-car" src="Audi_R8_gltf/Audi_R8_Yellow.gltf"></a-asset-item>
+          <a-asset-item id="red-car" src="Audi_R8_gltf/Audi_R8_Red.gltf"></a-asset-item>
+          <img id="red-texture" src="Audi_R8_gltf/Audi_R8_Texture_Red.png">
+        </a-assets>
+
+        <!-- <a-entity
+            gltf-model='#yellow-car'
+            id='car-model'
+            scale="5 5 5"
+            position="0 0 -300"
+            rotation="0 0 0"
+            class="clickable"
+            gesture-handler="minScale: 0.25; maxScale: 10"
+            animation="property: rotation; to: 0 360 0; loop: true; dur: 30000; easing: linear;"
+            modify-materials
+            >
+        </a-entity> -->
+
+        <!-- <a-entity
+            id='car-model'
+            scale="5 5 5"
+            position="0 0 -300"
+            rotation="0 0 0"
+            class="clickable"
+            gesture-handler="minScale: 0.25; maxScale: 10"
+            animation="property: rotation; from: 0 0 0; to: 0 360 0; loop: true; dur: 30000; easing: linear;"
+            >
+            <a-entity
+                gltf-model='#yellow-car'
+                id='car-model-yellow'
+                scale="1 1 1"
+                position="0 0 0"
+                rotation="0 0 0"
+                >
+            </a-entity>
+            <a-entity
+                gltf-model='#red-car'
+                id='car-model-red'
+                scale="1 1 1"
+                position="0 0 0"
+                rotation="0 0 0"
+                visible="false"
+                >
+        </a-entity> -->
+        <!-- position="150 50 -300" -->
+        <!-- modify-materials -->
+        <!-- <a-entity geometry="primitive: plane" 
+          material="shader: flat; src: #red-texture"></a-entity> -->
+        <!-- <a-box position="-1 0.5 -3" rotation="0 0 0" material="shader: flat; src: #red-texture"></a-box> -->
+
+        <!-- use rawgithack to retrieve the correct url for nft marker (see 'pinball' below) -->
+        <a-nft
+            type='nft' url='git/ARjs-Templates/template-1/textures/audi-cover'
+            smooth='true' smoothCount='10' smoothTolerance='0.01' smoothThreshold='5'
+            raycaster="objects: .clickable"
+            emitevents="true"
+            cursor="fuse: false; rayOrigin: mouse;">
+
+            <a-entity
+                gltf-model='#red-car'
+                id='car-model-red'
+                scale="5 5 5"
+                position="150 50 -300"
+                rotation="0 0 0"
+                class="clickable"
+                gesture-handler="minScale: 0.25; maxScale: 10"
+                animation="property: rotation; to: 0 360 0; loop: true; dur: 30000; easing: linear;"
+                visible="false"
+                >
+            </a-entity>
+    
+            <a-entity
+                gltf-model='#yellow-car'
+                id='car-model-yellow'
+                scale="5 5 5"
+                position="150 50 -300"
+                rotation="0 0 0"
+                class="clickable"
+                gesture-handler="minScale: 0.25; maxScale: 10"
+                animation="property: rotation; to: 0 360 0; loop: true; dur: 30000; easing: linear;"
+                visible="true"
+                >
+            </a-entity>
+        </a-nft>
+        <a-entity camera></a-entity>
+      </a-scene>
+  </body>
+</html>
